@@ -65,6 +65,9 @@ const Home = memo(() => {
           <p onClick={() => navigate("/about")}>
             Перед тим як розпочати, ознайомтеся з правилами.
           </p>
+          <a href="https://drive.google.com/uc?export=download&id=1Y2wW5GQHoS6rQPeWc1N6XQtnRVhpFW3W">
+            download android apk
+          </a>
         </Flex>
       </Flex>
       <Flex center className="home__fone">

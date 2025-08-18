@@ -49,6 +49,9 @@ const About = ({}: AboutProps) => {
         <br />
         <h3 className="tacenter">Уся інформація у загальному користуванні!</h3>
         <h3 className="tacenter">Усі користувачі можуть бачити усі місця!</h3>
+        <a href="https://drive.google.com/uc?export=download&id=1Y2wW5GQHoS6rQPeWc1N6XQtnRVhpFW3W">
+          <h3 className="tacenter COLORRED">download android apk</h3>
+        </a>
         <br />
 
         <Flex className="about__back" onClick={() => navigate(-1)}>
