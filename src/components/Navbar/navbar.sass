@@ -1,0 +1,30 @@
+@use '../../sass/main_style' as *
+
+.navbar
+    padding: 0.5rem
+    overflow: hidden
+    &__item
+        width: 5rem
+        padding-left: 1rem
+        background: $COLORSECOND
+        justify-content: flex-start
+        align-items: center
+        border-radius: 10rem
+        overflow: hidden
+        transition: width 0.3s ease-in-out
+        &:hover
+            width: 15rem
+            transition: width 0.3s ease-in-out
+            
+        h1
+            padding-top: 0.7rem
+            color: #fff
+    &__exit
+        *
+            color: $COLORRED
+            transition: all 0.2s
+        &:hover
+            *
+                color: $COLORORANGE
+                transition: all 0.2s
+

@@ -1,0 +1,82 @@
+@use '../../sass/main_style' as *
+
+.inputtext__small
+  width: 100%
+  position: relative
+  &:last-child
+    margin-bottom: 10px
+    
+  input
+    height: 4rem
+    @media (max-width: 700px)
+      font-size: 2.2rem
+    &:focus + label,
+    &:not(:placeholder-shown) + label
+      color: #81818185
+      top: -8px
+      transition: all 0.2s
+  textarea
+    outline: none
+    width: 100%
+    padding: 1rem
+    background: #00000048
+    color: white
+    border-color: $COLORACCENT
+    border-radius: 0.5rem
+    resize: none
+    scrollbar-width: thin
+    scrollbar-color: $COLORACCENT transparent
+
+    &::-webkit-scrollbar
+      width: 6px
+
+    &::-webkit-scrollbar-track
+      background: transparent
+
+    &::-webkit-scrollbar-thumb
+      background-color: $COLORACCENT
+      border-radius: 3px
+
+    &::-webkit-scrollbar-thumb:hover
+      background-color: $COLORACCENT
+
+
+
+
+
+
+
+
+
+  // textarea::-webkit-scrollbar
+  //   width: 3px
+  // textarea::-webkit-scrollbar-track
+  //   background: transparent
+  // textarea::-webkit-scrollbar-thumb
+  //   background-color: $COLORACCENT
+  //   border-radius: 3px
+  // textarea::-webkit-scrollbar-thumb:hover
+  //   background-color: $COLORACCENT
+
+
+  label
+    position: absolute
+    font-weight: 400
+    top: 13px
+    left: 10px
+    transition: all 0.2s
+    color: $COLORWHITE
+    padding: 1px 3px
+    border-radius: 3px
+    letter-spacing: 0.1rem
+
+  .input-message-error
+    padding-left: 10px
+    margin: 3px
+    font-size: 1.1rem
+    color: $COLORRED
+  .input-error
+    border-bottom: 1px solid $COLORRED
+    color: $COLORRED
+  .input-label-error
+    color: $COLORRED
