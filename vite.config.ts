@@ -4,7 +4,7 @@ import path from "path"
 
 export default defineConfig({
   plugins: [react()],
-  base: "/fishing",
+  base: "/myfapp",
   server: {
     watch: {
       usePolling: true,
@@ -17,5 +17,8 @@ export default defineConfig({
     alias: {
       src: path.resolve(__dirname, "src"),
     },
+  },
+  optimizeDeps: {
+    exclude: ["swiper"],
   },
 })

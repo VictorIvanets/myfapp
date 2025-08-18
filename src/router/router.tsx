@@ -104,5 +104,5 @@ export const router = createBrowserRouter(
     },
   ],
 
-  { basename: "/fishing" }
+  { basename: "/myfapp" }
 )

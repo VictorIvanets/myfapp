@@ -6,11 +6,11 @@ import type { ResponseGetPhoto } from "src/types/photo.types"
 import MaterialIcon from "src/shared/icons/Materialicons"
 import CkeckDelete from "../Delete/CkeckDelete"
 import { useEffect, useRef, useState } from "react"
-import { Swiper as SwiperType } from "swiper/types"
 import type { OneFishingT } from "src/types/fishing"
 import { useSelector } from "react-redux"
 import type { RootState } from "src/store/store"
 import useDeletePhoto from "src/hooks/useDeletePhoto"
+import type { SwiperType } from "swiper/types"
 
 interface SwiperProps {
   fotoInFolder: ResponseGetPhoto[]
