@@ -19,6 +19,8 @@ import useGetAllforMap from "src/hooks/useGetAllforMap"
 import { GiDoubleFish } from "react-icons/gi"
 import MapZoomController from "./components/MapZoomController"
 import Filter from "./components/Filter/Filter"
+import L from "leaflet"
+import marker from "/marker.svg"
 
 type MapRoutingState = {
   oneFishing?: OneFishingT
@@ -55,6 +57,14 @@ const MapPage = memo(() => {
     }
   }, [coords])
 
+  const markerIconConst = L.icon({
+    iconUrl: marker,
+    iconRetinaUrl: marker,
+    iconAnchor: [5, 55],
+    popupAnchor: [10, -44],
+    iconSize: [30, 60],
+  })
+
   return (
     <FadeIn className="mappage">
       {newCoords && userId ? (
@@ -75,7 +85,7 @@ const MapPage = memo(() => {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <Marker position={newCoords}>
+          <Marker position={newCoords} icon={markerIconConst}>
             <Popup>
               <h1>Ви тут</h1>
             </Popup>
