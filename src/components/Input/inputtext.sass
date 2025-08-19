@@ -15,6 +15,9 @@
       color: #81818185
       top: -8px
       transition: all 0.2s
+      *
+        color: #81818185
+
   textarea
     outline: none
     width: 100%
@@ -40,25 +43,6 @@
     &::-webkit-scrollbar-thumb:hover
       background-color: $COLORACCENT
 
-
-
-
-
-
-
-
-
-  // textarea::-webkit-scrollbar
-  //   width: 3px
-  // textarea::-webkit-scrollbar-track
-  //   background: transparent
-  // textarea::-webkit-scrollbar-thumb
-  //   background-color: $COLORACCENT
-  //   border-radius: 3px
-  // textarea::-webkit-scrollbar-thumb:hover
-  //   background-color: $COLORACCENT
-
-
   label
     position: absolute
     font-weight: 400
@@ -69,6 +53,7 @@
     padding: 1px 3px
     border-radius: 3px
     letter-spacing: 0.1rem
+    pointer-events: none
 
   .input-message-error
     padding-left: 10px
@@ -80,3 +65,12 @@
     color: $COLORRED
   .input-label-error
     color: $COLORRED
+  .search-icon
+    font-size: 1.5rem
+    transform: translateY(2px)
+  .input-label-search
+    width: 100%
+  .input-label-box-search
+    padding-right: 2rem
+    justify-content: flex-end
+    color: $COLORTEXT

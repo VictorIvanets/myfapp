@@ -1,10 +1,10 @@
-import "./allfishingpage.sass"
+import "./paid.sass"
 import { memo } from "react"
 import Flex from "src/components/Flex/Flex"
 import InputText from "src/components/Input/InputText"
 import List from "src/components/List"
-import useGetAll from "src/hooks/useGetAll"
-const AllFishingPage = memo(() => {
+import useGetPaid from "src/hooks/useGetPaid"
+const PaidPlace = memo(() => {
   const {
     isLoading,
     isError,
@@ -17,7 +17,7 @@ const AllFishingPage = memo(() => {
     setValueTitle,
     valueDescription,
     setValueDescription,
-  } = useGetAll()
+  } = useGetPaid()
 
   return (
     <>
@@ -51,4 +51,4 @@ const AllFishingPage = memo(() => {
   )
 })
 
-export default AllFishingPage
+export default PaidPlace

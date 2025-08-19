@@ -14,11 +14,19 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import Button from "src/components/Button/Button"
-import type { FishingPayloadT, OneFishingT } from "src/types/fishing"
+import type {
+  FishingPayloadT,
+  OneFishingT,
+  PaidFishingT,
+} from "src/types/fishing"
 import MaterialIcon from "src/shared/icons/Materialicons"
 import InputField from "src/components/Input/InputField"
 import useCreateFising from "src/hooks/useCreateFising"
 import useUpdateFising from "src/hooks/useUpdateFising"
+import { cleanStr } from "src/helpers/cleanObjectStrings"
+import { useSelector } from "react-redux"
+import type { RootState } from "src/store/store"
+import { Preloader } from "src/components/preloaders/PreloaderBall"
 
 type LocationState = {
   data?: OneFishingT
@@ -29,9 +37,14 @@ const AddPage = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const state = location.state as LocationState
+  const currentUser = useSelector((s: RootState) => s.auth.userInfo?.login)
+
   const [weather, setWeather] = useState<WeatherT | undefined>()
-  const { create } = useCreateFising()
-  const { updete } = useUpdateFising(state.data?._id || "")
+  const [createPaid, setCreatePaid] = useState(false)
+  const { create, isLoading } = useCreateFising()
+  const { updete, isLoading: updateisLoading } = useUpdateFising(
+    state.data?._id || ""
+  )
 
   const getWeather = async () => {
     const result = state.position && (await getWeatherApi(state.position))
@@ -54,6 +67,13 @@ const AddPage = () => {
       description: state.data ? state.data?.description : "",
       score: state.data ? state.data?.score : 0,
       date: state.data ? state.data?.date : "",
+      paidTitle: state.data && state.data.paid ? state.data.paid?.title : "",
+      paidOwner: state.data && state.data.paid ? state.data.paid?.owner : "",
+      paidPrise: state.data && state.data.paid ? state.data.paid?.price : 0,
+      paidContact:
+        state.data && state.data.paid
+          ? state.data.paid?.contact.join(", ")
+          : "",
     },
   })
 
@@ -62,19 +82,34 @@ const AddPage = () => {
     description: string
     score: number
     date: string
+    paidTitle: string
+    paidOwner: string
+    paidPrise: number
+    paidContact: string
   }) => {
     if (weather && state.position && state.position.lat && state.position.lng) {
+      const paidFishing: PaidFishingT = {
+        title: data.paidTitle,
+        price: data.paidPrise,
+        owner: data.paidOwner,
+        contact: cleanStr(data.paidContact).split(", "),
+      }
+
       const paramsFishing: FishingPayloadT = {
-        title: data.title.replace(/\s+/g, " ").trim(),
-        description: data.description.replace(/\s+/g, " ").trim(),
+        title: cleanStr(data.title),
+        description: cleanStr(data.description),
         score: data.score,
         date: data.date,
         coords: [state.position.lat, state.position.lng],
         img: [],
         weather: weather,
+        paid:
+          currentUser && currentUser === "admin" && data.paidTitle !== ""
+            ? paidFishing
+            : undefined,
       }
       create(paramsFishing)
-      navigate(`/mypage`)
+      // navigate(`/mypage`)
     }
     reset()
   }
@@ -84,21 +119,37 @@ const AddPage = () => {
     description: string
     score: number
     date: string
+    paidTitle: string
+    paidOwner: string
+    paidPrise: number
+    paidContact: string
   }) => {
     if (state.data) {
+      const paidFishing: PaidFishingT = {
+        title: data.paidTitle,
+        price: data.paidPrise,
+        owner: data.paidOwner,
+        contact: cleanStr(data.paidContact).split(", "),
+      }
+
       const updateParamsFishing: Omit<
         FishingPayloadT,
         "coords" | "img" | "weather"
       > = {
-        title: data.title.replace(/\s+/g, " ").trim(),
-        description: data.description.replace(/\s+/g, " ").trim(),
+        title: cleanStr(data.title),
+        description: cleanStr(data.description),
         score: data.score,
         date: data.date,
+        paid:
+          currentUser && currentUser === "admin" && data.paidTitle !== ""
+            ? paidFishing
+            : undefined,
       }
+
       const _id = state.data?._id || ""
       const payload = { ...state.data, ...updateParamsFishing }
       updete({ _id, payload })
-      navigate(`/details/${state.data._id}`)
+      navigate(`/details/${_id}`)
     }
     reset()
   }
@@ -131,7 +182,7 @@ const AddPage = () => {
         )}
         <form
           onSubmit={handleSubmit(state.data ? update : submit)}
-          className="login__submitform"
+          className="login__submitform addpage__submitform"
         >
           <Flex center column gap={25}>
             <Flex className="login__submitform__input" column gap={10}>
@@ -171,13 +222,54 @@ const AddPage = () => {
                 />
               </Flex>
             </Flex>
-            <Button
-              isValid={isValid}
-              type="submit"
-              appearence="big"
-              title={!state.data ? "СТВОРИТИ" : "ОНОВИТИ"}
-            />
+            <Flex flex center gap={5}>
+              <Button
+                isValid={isValid}
+                type="submit"
+                appearence="big"
+                title={!state.data ? "СТВОРИТИ" : "ОНОВИТИ"}
+              />
+              {currentUser === "admin" && (
+                <Button
+                  type="button"
+                  appearence="big"
+                  title={"PAID"}
+                  onClick={() => setCreatePaid(!createPaid)}
+                />
+              )}
+            </Flex>
           </Flex>
+          {createPaid && (
+            <Flex absolute className="addpage__paidform" column gap={10}>
+              <InputField
+                id="input_title_add_paid"
+                label="Точна назва місця"
+                {...register("paidTitle")}
+              />
+              <InputField
+                id="input_price_add_paid"
+                label="Ціна"
+                type="number"
+                {...register("paidPrise", { valueAsNumber: true })}
+              />
+
+              <InputField
+                id="input_owner_add_paid"
+                label="Власник, або охоронець"
+                {...register("paidOwner")}
+              />
+              <InputField
+                id="input_contact_add_paid"
+                label="Контактні дані (через кому ', ')"
+                {...register("paidContact")}
+              />
+            </Flex>
+          )}
+          {(updateisLoading || isLoading) && (
+            <Flex absolute className="addpage__preloader" column gap={10}>
+              <Preloader />
+            </Flex>
+          )}
         </form>
 
         <Flex className="addpage__back" onClick={() => navigate(-1)}>

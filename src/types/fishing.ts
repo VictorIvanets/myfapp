@@ -8,6 +8,7 @@ export type FishingPayloadT = {
   coords: [number, number]
   img: ImageT[]
   weather: WeatherT
+  paid?: PaidFishingT
 }
 
 export type OneFishingT = {
@@ -38,6 +39,7 @@ export type OneFishingT = {
   }
   createdA: string
   updatedAt: string
+  paid?: PaidFishingT
 }
 
 export type FishingResponseT = {
@@ -52,5 +54,12 @@ export type ImageT = {
 
 export type ResponseForMapT = Pick<
   OneFishingT,
-  "_id" | "title" | "coords" | "score" | "description" | "userId"
+  "_id" | "title" | "coords" | "score" | "description" | "userId" | "paid"
 >
+
+export type PaidFishingT = {
+  title: string
+  price: number
+  owner: string
+  contact: string[]
+}

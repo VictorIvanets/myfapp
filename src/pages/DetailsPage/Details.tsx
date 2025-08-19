@@ -21,6 +21,7 @@ import useGetOneFishing from "src/hooks/useGetOneFishing"
 import useGetPhotoInFolder from "src/hooks/useGetPhotoInFolder"
 import { TiWeatherPartlySunny } from "react-icons/ti"
 import Weather from "src/components/Weather/Weather"
+import PaidContacts from "./components/PaidContacts/PaidContacts"
 const Details = () => {
   const navigate = useNavigate()
   const userId = useSelector((s: RootState) => s.auth.userInfo?._id)
@@ -28,6 +29,7 @@ const Details = () => {
   const [deleteItem, setDeleteItem] = useState(false)
   const [uploadPhoto, setUploadPhoto] = useState(false)
   const [commentsView, setComments] = useState(false)
+  const [contactsView, setContactsView] = useState(false)
   const [weatherView, setWeatherView] = useState(false)
   const [timeruploadPhoto, setTimerUploadPhoto] = useState<
     ResponseGetPhoto[] | undefined
@@ -58,24 +60,44 @@ const Details = () => {
                 <MaterialIcon name="MdArrowBackIos" />
               </h1>
             </Flex>
-            <h4 className="upper">{data.title}</h4>
-            <Flex column className="datails__content__description">
-              <p>{data.description}</p>
+            <Flex column>
+              <h4 className="upper">{data.title}</h4>
+              {data.paid && <h3 className="upper">{data.paid.title}</h3>}
+
+              <Flex column className="datails__content__description">
+                <p>{data.description}</p>
+              </Flex>
             </Flex>
 
             <Flex className="datails__content__footer" spredV gap={10}>
               <p>
-                Дата: {normDate?.[2]} / {normDate?.[1]} /{normDate?.[0]}
+                Дата: {normDate?.[2]} / {normDate?.[1]} / {normDate?.[0]}
               </p>
 
-              <h2
-                onClick={() => setWeatherView(!weatherView)}
-                title="погода"
-                className="datails__content__weather"
-              >
-                <TiWeatherPartlySunny />
-              </h2>
-              <p>Оцінка: {data.score}</p>
+              {data.paid ? (
+                <h3 className="datails__content__weather">
+                  Ціна: {data.paid.price}
+                </h3>
+              ) : (
+                <h2
+                  onClick={() => setWeatherView(!weatherView)}
+                  title="погода"
+                  className="datails__content__weather"
+                >
+                  <TiWeatherPartlySunny />
+                </h2>
+              )}
+              {data.paid ? (
+                <h3
+                  onClick={() => setContactsView(!contactsView)}
+                  title="погода"
+                  className="datails__content__weather"
+                >
+                  Контакти
+                </h3>
+              ) : (
+                <p>Оцінка: {data.score}</p>
+              )}
             </Flex>
             <Flex className="datails__content__buttonbar" spredV gap={10}>
               <a
@@ -206,6 +228,9 @@ const Details = () => {
         )}
         {weatherView && data && (
           <Weather setWeatherView={setWeatherView} data={data.weather} />
+        )}
+        {contactsView && data && data.paid && (
+          <PaidContacts setContactsView={setContactsView} paid={data.paid} />
         )}
       </Flex>
     </FadeIn>

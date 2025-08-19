@@ -8,6 +8,7 @@ import type {
   InfiniteQueryObserverResult,
 } from "@tanstack/react-query"
 import { Preloader } from "../preloaders/PreloaderBall"
+import PaidCard from "../PaidCard"
 
 interface ListProps {
   data: OneFishingT[]
@@ -64,7 +65,13 @@ const List = memo(
         {label && <h4 className="list__label">{label}</h4>}
         <div className="list">
           {data.map((i) => (
-            <Card key={i._id} item={i} />
+            <>
+              {i.paid ? (
+                <PaidCard key={i._id} item={i} />
+              ) : (
+                <Card key={i._id} item={i} />
+              )}
+            </>
           ))}
           {(isLoading || isFetchingNextPage) && (
             <div className="listwrapper__loader">

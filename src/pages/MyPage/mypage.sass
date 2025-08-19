@@ -31,5 +31,33 @@
             &:hover
                 color: $COLORSECOND
                 transition: all 0.2s ease-in-out
+    &__advertisement
+        &__left
+            position: absolute
+            width: 20%
+            height: 90%
+            overflow: hidden
+            left: 3rem
+            top: 5%
+            background: #f87474
+            @media (max-width: 700px)
+                display: none
+        &__right
+            position: absolute
+            width: 20%
+            height: 90%
+            overflow: hidden
+            right: 3rem
+            top: 5%
+            background: #f87474
+            @media (max-width: 700px)
+                display: none
+        &__img
+            height: 100%
+            object-fit: cover
+            object-position: center
+            width: 100%
+
+
             
 

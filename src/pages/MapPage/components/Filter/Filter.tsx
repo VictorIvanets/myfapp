@@ -18,6 +18,9 @@ const Filter = ({ allFishins, setFilterAll }: FilterProps) => {
     if (value === "my" && userId) {
       const result = allFishins.filter((i) => i.userId === userId)
       setFilterAll(result)
+    } else if (value === "paid") {
+      const result = allFishins.filter((i) => i.paid !== undefined)
+      setFilterAll(result)
     } else if (value === "rating7") {
       console.log(value)
       const result = allFishins.filter((i) => i.score >= 7)
@@ -102,6 +105,12 @@ const Filter = ({ allFishins, setFilterAll }: FilterProps) => {
           className="filter__btnmy"
           title="Мої місця"
           value="my"
+        />
+        <Button
+          onClick={(e) => setValue(e.currentTarget.value)}
+          className="filter__btnmy"
+          title="Платні місця"
+          value="paid"
         />
       </Flex>
     </FadeIn>

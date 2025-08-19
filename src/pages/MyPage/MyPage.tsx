@@ -10,9 +10,10 @@ import { SwipeTabs } from "src/components/SwipeTabs/SwipeTabs"
 import { TABS } from "./constants"
 import MaterialIcon from "src/shared/icons/Materialicons"
 import { Link } from "react-router-dom"
-interface MyPageProps {}
+import left from "/baner1.png"
+import right from "/baner2.png"
 
-const MyPage = memo(({}: MyPageProps) => {
+const MyPage = memo(() => {
   const dispatch = useDispatch<AppDispatch>()
   const user = useSelector((s: RootState) => s.auth.userInfo)
 
@@ -22,9 +23,15 @@ const MyPage = memo(({}: MyPageProps) => {
 
   return (
     <FadeIn>
-      <Flex column centerV spredV className="mypage">
+      <Flex relativ column centerV spredV className="mypage">
         <Flex center className="mypage__mainbox">
           <SwipeTabs render={TABS} />
+        </Flex>
+        <Flex absolute className="mypage__advertisement__left">
+          <img className="mypage__advertisement__img" src={left} alt="left" />
+        </Flex>
+        <Flex absolute className="mypage__advertisement__right">
+          <img className="mypage__advertisement__img" src={right} alt="right" />
         </Flex>
         <Flex className="mypage__footer">
           {!user ? (

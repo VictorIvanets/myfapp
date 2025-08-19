@@ -7,6 +7,7 @@ export const API_ENDPOINTS = {
   FISHING: {
     GET_ALL_BY_USER: "fishings/user",
     GET_ALL: "fishings/all",
+    GET_PAID: "fishings/paid",
     GET_ALL_FOR_MAP: "fishings/allformap",
     GET_ONE_BY_ID: "fishings/onesets/",
     CREATE_POST: "fishings/create",

@@ -23,6 +23,10 @@ export const addFishingSchema = z.object({
       required_error: "Дата є обов’язковою",
     })
     .min(8, "Дата є обов’язковою"),
+  paidTitle: z.string(),
+  paidPrise: z.number(),
+  paidOwner: z.string(),
+  paidContact: z.string(),
 })
 
 export type AddFishingSchemaDataFields = z.infer<typeof addFishingSchema>
