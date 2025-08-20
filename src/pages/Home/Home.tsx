@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef, useState } from "react"
+import { memo, useEffect, useLayoutEffect, useState } from "react"
 import "./home.sass"
 import FadeIn from "src/components/FadeIn/FadeIn"
 import Flex from "src/components/Flex/Flex"
@@ -7,11 +7,11 @@ import Fon from "/homefone.svg"
 import { enterServices } from "src/services/enter.services"
 import { Preloader } from "src/components/preloaders/PreloaderBall"
 import { useNavigate } from "react-router-dom"
+import { canvasScript } from "./canvas"
 
 const Home = memo(() => {
   const [server, setServer] = useState<string | undefined>()
   const navigate = useNavigate()
-  const parallaxRef = useRef<HTMLDivElement | null>(null)
 
   const checkServerRunning = async () => {
     setServer(undefined)
@@ -23,13 +23,30 @@ const Home = memo(() => {
     }
   }
 
+  document.addEventListener("mousemove", (event) => {
+    Object.assign(document.documentElement, {
+      style: `
+    --move-x: ${(event.clientX - window.innerWidth / 2) * -0.003}deg;
+    --move-y: ${(event.clientY - window.innerHeight / 2) * -0.008}deg;
+    `,
+    })
+  })
+
   useEffect(() => {
     server !== "Server is running" && checkServerRunning()
   }, [])
 
+  useLayoutEffect(() => {
+    canvasScript()
+  }, [])
+
   return (
-    <FadeIn>
-      <Flex ref={parallaxRef} column spredV centerV className="home">
+    <FadeIn className="layers">
+      <canvas
+        id="waveCanvas"
+        style={{ position: "absolute", zIndex: -2 }}
+      ></canvas>
+      <Flex column spredV centerV className="home">
         {server && server !== "Server is running" && (
           <Flex gap={30} onClick={checkServerRunning} className="serverload">
             <Preloader />
@@ -69,9 +86,9 @@ const Home = memo(() => {
             download android apk
           </a>
         </Flex>
-      </Flex>
-      <Flex center className="home__fone">
-        <img src={Fon} alt="Fon" />
+        <Flex center className="home__fone">
+          <img src={Fon} alt="Fon" />
+        </Flex>
       </Flex>
     </FadeIn>
   )

@@ -7,6 +7,12 @@
     animation: gradientAnimation 8s ease infinite
     background: linear-gradient(270deg, #ffffff00, #001a2c67, #ffffff00)
     background-size: 400% 400%
+    height: 100vh
+    transform-style: preserve-3d
+    transform: rotateX(var(--move-y)) rotateY(var(--move-x))
+    will-change: transform
+    transition: transform 1s cubic-bezier(0.05, 0.5, 0, 1)
+
 
     @media (max-width: 700px)
         padding: 10rem 1rem
@@ -14,19 +20,24 @@
     &__logobox
         width: 30%
         align-self: end
-        cursor: pointer       
+        cursor: pointer
+        transform: translateZ(190px) translateX(-120px) translateY(20px) scale(0.8)       
         @media (max-width: 700px)
             width: 70%
             align-self: center
+            transform: translateX(0px)
         &__logo
             height: 100%
+            filter: drop-shadow(4px 4px 10px rgba(0,0,0,1))
+            
     &__fone
         width: 100%
         height: 100%
         position: absolute
         top: 0
         right: 0
-        z-index: -1
+        z-index: -5
+        transform: translateZ(-150px) scale(1.3)
         img
             width: 100%
             height: 100%
@@ -43,19 +54,30 @@
         animation: gradientAnimation 6s ease infinite
         -webkit-background-clip: text
         -webkit-text-fill-color: transparent
+        transform: translateZ(100px) translateX(-90px) translateY(35px)  scale(1)
 
         @media (max-width: 700px)
             align-self: center
             text-align: center
+            transform: translateZ(0) translateX(0) translateY(0)  scale(1)
+
     &__text
         width: 50%
         align-items: flex-end
         align-self: end
         gap: 1rem
+        transform: translateZ(0) translateX(-25px) scale(0.9)
+        z-index: 20
+        @media (max-width: 700px)
+            transform: translateZ(0) translateX(0) translateY(0)  scale(1)
         p
-            font-size: clamp(12px, 1vw, 12px)
+            font-size: clamp(14px, 1.1vw, 14px)
             text-align: right
             transition: color 0.3s ease
+            color: $COLORWHITE
+            letter-spacing: 1px
+            will-change: transform
+            font-family: Raleway
             @media (max-width: 700px)
                 text-align: center
             &:last-child
@@ -96,3 +118,7 @@
     background-position: 100% 50%
   100%
     background-position: 0% 50%
+
+.layers
+    perspective: 1000px
+    overflow: hidden
