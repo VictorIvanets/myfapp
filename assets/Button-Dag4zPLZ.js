@@ -1,0 +1,1 @@
+import{j as n}from"./index-0QbYwmry.js";function e({title:s,className:t,appearence:i="small",isValid:r=!0,value:l,...o}){return n.jsx("div",{className:`${t} btnbox ${i==="big"?"big":"small"} ${r?"":"btnbox__invalid"}`,children:n.jsx("button",{value:l||s,...o,children:n.jsx("p",{children:s})})})}export{e as B};
