@@ -1,4 +1,4 @@
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/css"
 import type { Swiper as SwiperType } from "swiper"
@@ -8,14 +8,30 @@ type SwipeTabsProps = {
   render: TabsT[]
 }
 
+export const ACTIVE_TAB = "activeTabMyFishing"
+
 export type TabsT = {
   title: string
   components: React.ReactNode
 }
 
 export const SwipeTabs = ({ render }: SwipeTabsProps) => {
-  const [activeTab, setActiveTab] = useState(0)
+  const [activeTab, setActiveTab] = useState(
+    sessionStorage.getItem(ACTIVE_TAB) || 0
+  )
   const swiperRef = useRef<SwiperType | null>(null)
+
+  useEffect(() => {
+    const saved = sessionStorage.getItem(ACTIVE_TAB)
+    if (saved !== null) {
+      setActiveTab(Number(saved))
+      swiperRef.current?.slideTo(Number(saved))
+    }
+  }, [])
+
+  useEffect(() => {
+    sessionStorage.setItem(ACTIVE_TAB, String(activeTab))
+  }, [activeTab])
 
   const handleTabClick = (index: number) => {
     setActiveTab(index)
@@ -49,6 +65,7 @@ export const SwipeTabs = ({ render }: SwipeTabsProps) => {
         onSlideChange={(swiper) => setActiveTab(swiper.activeIndex)}
         onSwiper={(swiper) => {
           swiperRef.current = swiper
+          swiper.slideTo(activeTab, 0)
         }}
         slidesPerView={1}
         spaceBetween={20}

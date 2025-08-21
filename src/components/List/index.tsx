@@ -65,13 +65,13 @@ const List = memo(
         {label && <h4 className="list__label">{label}</h4>}
         <div className="list">
           {data.map((i) => (
-            <>
+            <div style={{ marginBottom: "2rem" }} key={i._id}>
               {i.paid ? (
                 <PaidCard key={i._id} item={i} />
               ) : (
                 <Card key={i._id} item={i} />
               )}
-            </>
+            </div>
           ))}
           {(isLoading || isFetchingNextPage) && (
             <div className="listwrapper__loader">
