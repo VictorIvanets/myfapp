@@ -8,6 +8,7 @@ import { enterServices } from "src/services/enter.services"
 import { Preloader } from "src/components/preloaders/PreloaderBall"
 import { useNavigate } from "react-router-dom"
 import { canvasScript } from "./canvas"
+import { LINK_APK } from "src/api/PREFIX"
 
 const Home = memo(() => {
   const [server, setServer] = useState<string | undefined>()
@@ -69,7 +70,9 @@ const Home = memo(() => {
           <img className="home__logobox__logo" src={Logo} alt="logo" />
         </div>
         <Flex column className="home__text">
-          <h1>Моя рибалка</h1>
+          <h1>
+            <span>додаток</span> Моя рибалка
+          </h1>
           <p>
             Тут Ви зможете зробити записи про Ваші рибалки, <br /> та
             переглянути, що і де ловлять інші.
@@ -79,12 +82,13 @@ const Home = memo(() => {
             місцях котрі додали інші користувачі. Уся інформація доступна тільки
             зареєстрованим користувачам.
           </p>
-          <p onClick={() => navigate("/about")}>
+          <p className="home__ruleslink" onClick={() => navigate("/about")}>
             Перед тим як розпочати, ознайомтеся з правилами.
           </p>
-          <a href="https://drive.google.com/uc?export=download&id=1Y2wW5GQHoS6rQPeWc1N6XQtnRVhpFW3W">
-            download android apk
-          </a>
+          <p className="home__ruleslink" onClick={() => navigate("/login")}>
+            Вхід
+          </p>
+          <a href={LINK_APK}>download android apk</a>
         </Flex>
         <Flex center className="home__fone">
           <img src={Fon} alt="Fon" />
