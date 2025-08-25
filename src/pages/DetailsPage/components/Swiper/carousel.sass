@@ -1,0 +1,69 @@
+@use '../../../../sass/main_style' as *
+
+.carouselcontainer
+    width: 100%
+    height: 100%
+
+.carousel
+    width: 100%
+    height: 95%
+    overflow-x: auto
+    margin-bottom: 1%
+    display: flex
+    gap: 1em
+    scroll-behavior: smooth
+    anchor-name: --carousel
+    scroll-snap-type: x mandatory
+    scroll-marker-group: after
+
+.carousel::scroll-marker-group
+    display: flex
+    justify-content: center
+    gap: 0.5rem
+.itemcard::scroll-marker
+    content: ''
+    height: 0.7em
+    width: 0.7em
+    background: $COLORSECOND
+    border-radius: 50%
+.itemcard::scroll-marker:target-current
+    background: $COLORACCENT
+
+
+.carousel::-webkit-scrollbar
+    display: none
+
+.carousel::scroll-button(right), .carousel::scroll-button(left)
+    content: '>'
+    border: none
+    background: $COLORACCENT
+    font-family: Raleway, sans-serif
+    font-size: 3em
+    color: $COLORTEXT
+    height: 3rem
+    width: 3rem
+    border-radius: 50%
+    padding-bottom: .2em
+    cursor: pointer
+    position: fixed
+    position-anchor: --carousel
+    position-area: right center
+    translate: -50%
+
+.carousel::scroll-button(left)
+    content: '<'
+    position-area: left center
+    translate: 50%
+
+.carousel::scroll-button(right):disabled, .carousel::scroll-button(left):disabled
+    opacity: .4
+    cursor: auto
+
+.itemcard
+    scroll-snap-align: start
+    flex: 0 0 100%
+    height: 100%
+    padding: 1em
+    border-radius: .5em
+    text-align: center
+    align-content: center

@@ -22,6 +22,9 @@ import useGetPhotoInFolder from "src/hooks/useGetPhotoInFolder"
 import { TiWeatherPartlySunny } from "react-icons/ti"
 import Weather from "src/components/Weather/Weather"
 import PaidContacts from "./components/PaidContacts/PaidContacts"
+import Carousel from "./components/Swiper/Carousel"
+const Firefox = navigator.userAgent.includes("Firefox")
+
 const Details = () => {
   const navigate = useNavigate()
   const userId = useSelector((s: RootState) => s.auth.userInfo?._id)
@@ -180,7 +183,13 @@ const Details = () => {
         {(deleteItem || uploadPhoto || commentsView) && <DetailsBlur />}
         <Flex center className="datails__photobox">
           {timeruploadPhoto?.length && data ? (
-            <PhotoSwiper fotoInFolder={timeruploadPhoto} data={data} />
+            <>
+              {Firefox ? (
+                <PhotoSwiper fotoInFolder={timeruploadPhoto} data={data} />
+              ) : (
+                <Carousel fotoInFolder={timeruploadPhoto} data={data} />
+              )}
+            </>
           ) : isLoadingPhoto ? (
             <Preloader />
           ) : (
