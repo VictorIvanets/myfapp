@@ -3,12 +3,13 @@ export const canvasScript = () => {
   if (!canvas) return
 
   const ctx = canvas.getContext("2d")!
-
   canvas.width = window.innerWidth
   canvas.height = window.innerHeight
 
   type Ripple = { x: number; y: number; radius: number; alpha: number }
   const ripples: Ripple[] = []
+
+  let intervalId: ReturnType<typeof setInterval> | null = null
 
   function addRipple() {
     ripples.push({
@@ -19,7 +20,30 @@ export const canvasScript = () => {
     })
   }
 
-  setInterval(addRipple, 3000)
+  function startRipples() {
+    if (!intervalId) {
+      intervalId = setInterval(addRipple, 3000)
+    }
+  }
+
+  function stopRipples() {
+    if (intervalId) {
+      clearInterval(intervalId)
+      intervalId = null
+    }
+  }
+
+  // слухаємо зміну видимості вкладки
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") {
+      startRipples()
+    } else {
+      stopRipples()
+    }
+  })
+
+  // одразу запускаємо
+  startRipples()
 
   function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)

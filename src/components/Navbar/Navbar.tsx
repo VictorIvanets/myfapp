@@ -8,6 +8,7 @@ import type { AppDispatch, RootState } from "src/store/store"
 import { userActions } from "src/store/auth.slice"
 import { IoFish } from "react-icons/io5"
 import { FaPowerOff } from "react-icons/fa6"
+import { IoIosChatbubbles } from "react-icons/io"
 
 interface NavbarProps {}
 const Navbar = memo(({}: NavbarProps) => {
@@ -16,7 +17,7 @@ const Navbar = memo(({}: NavbarProps) => {
 
   return (
     <>
-      <Flex column gap={25} className="navbar">
+      <Flex column gap={15} className="navbar">
         <NavLink to={"/home"}>
           <Flex className="navbar__item" gap={10}>
             <h1>
@@ -32,6 +33,16 @@ const Navbar = memo(({}: NavbarProps) => {
                 <IoFish />
               </h1>
               <p>РИБАЛКИ</p>
+            </Flex>
+          </NavLink>
+        )}
+        {data && (
+          <NavLink to={"/posts"}>
+            <Flex className="navbar__item" gap={10}>
+              <h1>
+                <IoIosChatbubbles />
+              </h1>
+              <p>СПІЛЬНОТА</p>
             </Flex>
           </NavLink>
         )}

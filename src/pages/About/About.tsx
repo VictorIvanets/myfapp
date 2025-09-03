@@ -88,10 +88,14 @@ const About = ({}: AboutProps) => {
         </div>
         <br />
         <br />
-        <h3 className="tacenter">Уся інформація у загальному користуванні!</h3>
-        <h3 className="tacenter">Усі користувачі можуть бачити усі місця!</h3>
+        <h4 className="tacenter COLORACCENT">
+          Уся інформація у загальному користуванні!
+        </h4>
+        <h4 className="tacenter COLORACCENT">
+          Усі користувачі можуть бачити усі місця!
+        </h4>
         <a href={LINK_APK}>
-          <h3 className="tacenter COLORRED">download android apk</h3>
+          <h4 className="tacenter COLORACCENT">download android apk</h4>
         </a>
         <br />
 

@@ -3,19 +3,30 @@ import {
   useQueryClient,
   type InfiniteData,
 } from "@tanstack/react-query"
+import { useLoadingBar } from "react-top-loading-bar"
+import { toastError, toastSuccess } from "src/components/Toasts/toasts"
+import { loadingBarProps } from "src/helpers/loadBarProps"
 import { fishingServices } from "src/services/fishing.services"
 import { QUERY_KEY } from "src/types/constants"
 import type { FishingResponseT } from "src/types/fishing"
 
 const useDeleteFising = () => {
   const queryClient = useQueryClient()
+  const { start, complete } = useLoadingBar(loadingBarProps)
 
   const mutation = useMutation({
-    mutationFn: fishingServices.deleteItem,
+    mutationFn: async (_id: string) => {
+      start()
+      return await fishingServices.deleteItem(_id)
+    },
+
     onError: (error) => {
-      console.log(error)
+      toastError({ message: error.message })
+      complete()
     },
     onSuccess(response) {
+      complete()
+      toastSuccess({ message: `Запис ${response.title} видалено` })
       queryClient.setQueryData<InfiniteData<FishingResponseT>>(
         [QUERY_KEY.ALL_FISH_USER],
         (prev) => {

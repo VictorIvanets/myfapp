@@ -10,6 +10,7 @@ import Layout from "src/pages/Layout/Layout"
 import { Login } from "src/pages/logIn"
 import { MapPage } from "src/pages/MapPage"
 import { MyPage } from "src/pages/MyPage"
+import { Posts } from "src/pages/Posts"
 import { RegisterUser } from "src/pages/RegisterUser"
 
 export const router = createBrowserRouter(
@@ -77,6 +78,16 @@ export const router = createBrowserRouter(
             <Suspense fallback={<Preloader />}>
               <RequireAuth>
                 <MapPage />
+              </RequireAuth>
+            </Suspense>
+          ),
+        },
+        {
+          path: "posts",
+          element: (
+            <Suspense fallback={<Preloader />}>
+              <RequireAuth>
+                <Posts />
               </RequireAuth>
             </Suspense>
           ),

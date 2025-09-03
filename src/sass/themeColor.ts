@@ -2,7 +2,7 @@ export const ThemeColor = {
   $COLORMAIN: "#1b1b1b",
   $COLORSECOND: "#313131",
   $COLORSECONDTR: "#adadad",
-  $COLORACCENT: "#3a0000",
+  $COLORACCENT: "#008394",
   $COLORWHITE: "#eeeeee",
   $COLORGREEN: "#07383f",
   $COLORRED: "#470404",

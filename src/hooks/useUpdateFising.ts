@@ -3,17 +3,27 @@ import {
   useQueryClient,
   type InfiniteData,
 } from "@tanstack/react-query"
+import { useLoadingBar } from "react-top-loading-bar"
+import { toastError, toastSuccess } from "src/components/Toasts/toasts"
+import { loadingBarProps } from "src/helpers/loadBarProps"
 import { fishingServices } from "src/services/fishing.services"
 import { QUERY_KEY } from "src/types/constants"
-import type { FishingResponseT } from "src/types/fishing"
+import type { FishingPayloadT, FishingResponseT } from "src/types/fishing"
 
 const useUpdateFising = (_id: string) => {
+  const { start, complete } = useLoadingBar(loadingBarProps)
   const mutation = useMutation({
-    mutationFn: fishingServices.update,
+    mutationFn: async (data: { _id: string; payload: FishingPayloadT }) => {
+      start()
+      return await fishingServices.update(data)
+    },
     onError: (error) => {
-      console.log(error)
+      complete()
+      toastError({ message: error.message })
     },
     onSuccess(response) {
+      toastSuccess({ message: `Запис ${response.title} оновлено` })
+      complete()
       queryClient.setQueryData<InfiniteData<FishingResponseT>>(
         [QUERY_KEY.ALL_FISH],
         (prev) => {

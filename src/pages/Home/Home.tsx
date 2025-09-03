@@ -70,23 +70,15 @@ const Home = memo(() => {
           <img className="home__logobox__logo" src={Logo} alt="logo" />
         </div>
         <Flex column className="home__text">
-          <h1>
-            <span>додаток</span> Моя рибалка
+          <h1
+            onClick={() => navigate("/about")}
+            className="home__maintext home__mainmin"
+          >
+            Моя рибалка
           </h1>
-          <p>
-            Тут Ви зможете зробити записи про Ваші рибалки, <br /> та
-            переглянути, що і де ловлять інші.
-          </p>
-          <p>
-            Ви зможете переглянути місця, відгуки, фото та коментарі по всіх
-            місцях котрі додали інші користувачі. Уся інформація доступна тільки
-            зареєстрованим користувачам.
-          </p>
+
           <p className="home__ruleslink" onClick={() => navigate("/about")}>
             Перед тим як розпочати, ознайомтеся з правилами.
-          </p>
-          <p className="home__ruleslink" onClick={() => navigate("/login")}>
-            Вхід
           </p>
           <a href={LINK_APK}>download android apk</a>
         </Flex>
