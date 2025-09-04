@@ -5,7 +5,7 @@ import type { OneFishingT } from "src/types/fishing"
 import { IoImages } from "react-icons/io5"
 import { MdOutlineTouchApp } from "react-icons/md"
 import { useState } from "react"
-import useUploadPhoto from "src/hooks/useUploadPhoto"
+import useUploadPhoto from "src/hooks/photo/useUploadPhoto"
 import { FaArrowRight } from "react-icons/fa"
 interface CkeckDeleteProps {
   data: OneFishingT

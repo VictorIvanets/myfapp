@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from "react"
 import type { OneFishingT } from "src/types/fishing"
 import { useSelector } from "react-redux"
 import type { RootState } from "src/store/store"
-import useDeletePhoto from "src/hooks/useDeletePhoto"
+import useDeletePhoto from "src/hooks/photo/useDeletePhoto"
 import type { SwiperType } from "swiper/types"
 
 interface SwiperProps {

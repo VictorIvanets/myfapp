@@ -3,7 +3,7 @@ import { memo } from "react"
 import Flex from "src/components/Flex/Flex"
 import InputText from "src/components/Input/InputText"
 import List from "src/components/List"
-import useGetAllByUser from "src/hooks/useGetAllByUser"
+import useGetAllByUser from "src/hooks/fisings/useGetAllByUser"
 
 const Start = memo(() => {
   const {

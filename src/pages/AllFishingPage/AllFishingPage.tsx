@@ -3,7 +3,7 @@ import { memo } from "react"
 import Flex from "src/components/Flex/Flex"
 import InputText from "src/components/Input/InputText"
 import List from "src/components/List"
-import useGetAll from "src/hooks/useGetAll"
+import useGetAll from "src/hooks/fisings/useGetAll"
 const AllFishingPage = memo(() => {
   const {
     isLoading,

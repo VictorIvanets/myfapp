@@ -6,6 +6,7 @@ import "./swiper.sass"
 
 type SwipeTabsProps = {
   render: TabsT[]
+  onTab?: number
 }
 
 export const ACTIVE_TAB = "activeTabMyFishing"
@@ -15,7 +16,7 @@ export type TabsT = {
   components: React.ReactNode
 }
 
-export const SwipeTabs = ({ render }: SwipeTabsProps) => {
+export const SwipeTabs = ({ render, onTab }: SwipeTabsProps) => {
   const [activeTab, setActiveTab] = useState(
     sessionStorage.getItem(ACTIVE_TAB) || 0
   )
@@ -37,6 +38,10 @@ export const SwipeTabs = ({ render }: SwipeTabsProps) => {
     setActiveTab(index)
     swiperRef.current?.slideTo(index)
   }
+
+  useEffect(() => {
+    onTab && handleTabClick(onTab)
+  }, [onTab])
 
   return (
     <div className="swipercontainer">

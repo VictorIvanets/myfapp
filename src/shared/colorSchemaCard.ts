@@ -1,37 +1,37 @@
-import type { ColorT } from "./colors"
+import { COLOR, type ColorT } from "./colors"
 
 const schema: schemaT = {
   red: {
-    background: "RED",
-    text: "WHITE",
+    background: COLOR.RED,
+    text: COLOR.WHITE,
   },
   blue: {
-    background: "ACCENT",
-    text: "TEXT",
+    background: COLOR.ACCENT,
+    text: COLOR.TEXT,
   },
   black: {
-    background: "MAIN",
-    text: "TEXT",
+    background: COLOR.MAIN,
+    text: COLOR.TEXT,
   },
   textgray: {
-    background: "SECOND",
-    text: "WHITE",
+    background: COLOR.SECOND,
+    text: COLOR.WHITE,
   },
   gray: {
-    background: "SECOND",
-    text: "WHITE",
+    background: COLOR.SECOND,
+    text: COLOR.WHITE,
   },
   green: {
-    background: "TEXT",
-    text: "ACCENT",
+    background: COLOR.TEXT,
+    text: COLOR.ACCENT,
   },
   white: {
-    background: "WHITE",
-    text: "RED",
+    background: COLOR.WHITE,
+    text: COLOR.RED,
   },
   orange: {
-    background: "ORANGE",
-    text: "WHITE",
+    background: COLOR.ORANGE,
+    text: COLOR.WHITE,
   },
 }
 
@@ -70,43 +70,43 @@ export enum ColorsKey {
 export const schemaColorCrard: ColorItemCardT[] = [
   {
     name: ColorsKey.TEXTGRAY,
-    background: "WHITE",
-    text: "SECOND",
+    background: COLOR.WHITE,
+    text: COLOR.SECOND,
   },
   {
     name: ColorsKey.BLUE,
-    background: "ACCENT",
-    text: "TEXT",
+    background: COLOR.ACCENT,
+    text: COLOR.TEXT,
   },
   {
     name: ColorsKey.BLACK,
-    background: "MAIN",
-    text: "TEXT",
+    background: COLOR.MAIN,
+    text: COLOR.TEXT,
   },
   {
     name: ColorsKey.GRAY,
-    background: "SECOND",
-    text: "WHITE",
+    background: COLOR.SECOND,
+    text: COLOR.WHITE,
   },
 
   {
     name: ColorsKey.GREEN,
-    background: "TEXT",
-    text: "ACCENT",
+    background: COLOR.TEXT,
+    text: COLOR.ACCENT,
   },
   {
     name: ColorsKey.WHITE,
-    background: "WHITE",
-    text: "RED",
+    background: COLOR.WHITE,
+    text: COLOR.RED,
   },
   {
     name: ColorsKey.RED,
-    background: "RED",
-    text: "WHITE",
+    background: COLOR.RED,
+    text: COLOR.WHITE,
   },
   {
     name: ColorsKey.ORANGE,
-    background: "ORANGE",
-    text: "WHITE",
+    background: COLOR.ORANGE,
+    text: COLOR.WHITE,
   },
 ]

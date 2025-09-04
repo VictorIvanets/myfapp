@@ -1,20 +1,19 @@
 import Flex from "src/components/Flex/Flex"
 import InputField from "src/components/Input/InputField"
-import useCreateComment from "src/hooks/comments/useCreateComment"
-import type { CommentT } from "src/types/comments.types"
-import type { OneFishingT } from "src/types/fishing"
 import { commentSchema, type CommentSchemaDataFields } from "./commentSchema"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import Button from "src/components/Button/Button"
 import { useSelector } from "react-redux"
 import type { RootState } from "src/store/store"
+import type { CommentPostPayloadT, PostT } from "src/types/posts.types"
+import useCreatePostComment from "src/hooks/comment_post/useCreatePostComment"
 
 interface AddCommentProps {
-  data: OneFishingT
+  data: PostT
 }
-const AddComment = ({ data }: AddCommentProps) => {
-  const { create } = useCreateComment(data._id)
+const AddPostComment = ({ data }: AddCommentProps) => {
+  const { create } = useCreatePostComment()
   const userInfo = useSelector((s: RootState) => s.auth?.userInfo)
 
   const {
@@ -30,10 +29,8 @@ const AddComment = ({ data }: AddCommentProps) => {
   })
 
   const submit = (comm: { comment: string }) => {
-    const payload: CommentT = {
-      login: userInfo?.name!,
-      useId: userInfo?._id!,
-      setId: data._id,
+    const payload: CommentPostPayloadT = {
+      postId: data._id,
       comment: comm.comment,
     }
     create(payload)
@@ -41,7 +38,7 @@ const AddComment = ({ data }: AddCommentProps) => {
   }
 
   return (
-    <Flex column className="addcomment">
+    <Flex column className="addpostcomment">
       <h4 className="tacenter">Напишіть коментар</h4>
       <form onSubmit={handleSubmit(submit)}>
         <InputField
@@ -49,11 +46,11 @@ const AddComment = ({ data }: AddCommentProps) => {
           {...register("comment")}
           error={errors.comment?.message}
           as="textarea"
-          heightArea={80}
+          heightArea={50}
         />
         {userInfo && (
           <Button
-            className="addcomment__btn"
+            className="addpostcomment__btn"
             isValid={isValid}
             type="submit"
             appearence="big"
@@ -65,4 +62,4 @@ const AddComment = ({ data }: AddCommentProps) => {
   )
 }
 
-export default AddComment
+export default AddPostComment

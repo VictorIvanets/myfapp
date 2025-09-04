@@ -1,6 +1,5 @@
 import { Bounce, toast } from "react-toastify"
 import "./toasts.sass"
-import Flex from "../Flex/Flex"
 
 type ToastProps = {
   message?: string
@@ -8,10 +7,10 @@ type ToastProps = {
 
 export const toastSuccess = ({ message }: ToastProps) =>
   toast.success(
-    <Flex centerH column className="toastwrapper">
+    <div className="toastwrapper">
       <h2>Успіх!</h2>
       <p>{message}</p>
-    </Flex>,
+    </div>,
     {
       position: "top-right",
       autoClose: 2000,
@@ -27,10 +26,10 @@ export const toastSuccess = ({ message }: ToastProps) =>
 
 export const toastError = ({ message }: ToastProps) =>
   toast.error(
-    <Flex column centerH className="toastwrapper">
+    <div className="toastwrapper">
       <h2>Помилка!</h2>
       <p>{message}</p>
-    </Flex>,
+    </div>,
     {
       position: "top-right",
       autoClose: 3000,

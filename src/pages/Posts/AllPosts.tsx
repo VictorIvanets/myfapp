@@ -1,10 +1,10 @@
-import "./paid.sass"
+import "./posts.sass"
 import { memo } from "react"
 import Flex from "src/components/Flex/Flex"
 import InputText from "src/components/Input/InputText"
-import List from "src/components/List"
-import useGetPaid from "src/hooks/fisings/useGetPaid"
-const PaidPlace = memo(() => {
+import PostList from "src/components/PostList/PostList"
+import useGetAllPost from "src/hooks/posts/useGetAllPosts"
+const AllPostPage = memo(() => {
   const {
     isLoading,
     isError,
@@ -12,37 +12,28 @@ const PaidPlace = memo(() => {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-    allItems,
-    valueTitle,
-    setValueTitle,
+    posts,
     valueDescription,
     setValueDescription,
-  } = useGetPaid()
+  } = useGetAllPost()
 
   return (
     <>
-      <Flex centerH className="allfishingpage">
-        <Flex column className="allfishingpage__list">
-          <InputText
-            value={valueTitle}
-            onChange={(e) => setValueTitle(e.target.value)}
-            id="input_title_search"
-            label="Пошук по назві"
-            searchLabel
-          />
+      <Flex centerH className="allpost">
+        <Flex column className="allpost__list">
           <InputText
             value={valueDescription}
             onChange={(e) => setValueDescription(e.target.value)}
             id="input_descriptoin_search"
-            label="Пошук за описом"
+            label="Пошук"
             searchLabel
           />
-          <List
+          <PostList
             hasNextPage={hasNextPage}
             fetchNextPage={fetchNextPage}
             isLoading={isLoading}
             isFetchingNextPage={isFetchingNextPage}
-            data={allItems}
+            data={posts}
           />
           {isError && <h4>{error?.message}</h4>}
         </Flex>
@@ -51,4 +42,4 @@ const PaidPlace = memo(() => {
   )
 })
 
-export default PaidPlace
+export default AllPostPage

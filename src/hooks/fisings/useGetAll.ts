@@ -1,11 +1,11 @@
 import { useInfiniteQuery } from "@tanstack/react-query"
+import { useState } from "react"
 import { fishingServices } from "src/services/fishing.services"
 import { QUERY_KEY } from "src/types/constants"
 import type { OneFishingT } from "src/types/fishing"
-import { useDebounce } from "./useDebounce"
-import { useState } from "react"
+import { useDebounce } from "../useDebounce"
 
-const useGetAllByUser = () => {
+const useGetAll = () => {
   const [valueTitle, setValueTitle] = useState<string>()
   const [valueDescription, setValueDescription] = useState<string>()
   const debounceTitle = useDebounce(valueTitle, 500)
@@ -22,9 +22,9 @@ const useGetAllByUser = () => {
     isRefetching,
     refetch,
   } = useInfiniteQuery({
-    queryKey: [QUERY_KEY.ALL_FISH_USER, debounceTitle, debounceDescription],
+    queryKey: [QUERY_KEY.ALL_FISH, debounceTitle, debounceDescription],
     queryFn: ({ pageParam }) =>
-      fishingServices.getAllByUser(
+      fishingServices.getAll(
         pageParam as string | undefined,
         debounceTitle,
         debounceDescription
@@ -55,4 +55,4 @@ const useGetAllByUser = () => {
   }
 }
 
-export default useGetAllByUser
+export default useGetAll

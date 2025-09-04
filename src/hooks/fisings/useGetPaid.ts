@@ -3,9 +3,9 @@ import { useState } from "react"
 import { fishingServices } from "src/services/fishing.services"
 import { QUERY_KEY } from "src/types/constants"
 import type { OneFishingT } from "src/types/fishing"
-import { useDebounce } from "./useDebounce"
+import { useDebounce } from "../useDebounce"
 
-const useGetAll = () => {
+const useGetPaid = () => {
   const [valueTitle, setValueTitle] = useState<string>()
   const [valueDescription, setValueDescription] = useState<string>()
   const debounceTitle = useDebounce(valueTitle, 500)
@@ -22,9 +22,9 @@ const useGetAll = () => {
     isRefetching,
     refetch,
   } = useInfiniteQuery({
-    queryKey: [QUERY_KEY.ALL_FISH, debounceTitle, debounceDescription],
+    queryKey: [QUERY_KEY.PAID, debounceTitle, debounceDescription],
     queryFn: ({ pageParam }) =>
-      fishingServices.getAll(
+      fishingServices.getPaid(
         pageParam as string | undefined,
         debounceTitle,
         debounceDescription
@@ -55,4 +55,4 @@ const useGetAll = () => {
   }
 }
 
-export default useGetAll
+export default useGetPaid

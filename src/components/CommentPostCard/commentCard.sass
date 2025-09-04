@@ -1,0 +1,46 @@
+@use '../../sass/main_style' as *
+
+.postcommentcard_wrapper
+        width: 100%
+        margin-bottom: 2rem
+        margin-top: 1rem
+        position: relative
+.postcommentcard
+        width: 100%
+        padding: 1rem
+        background: $COLORACCENT
+        border-radius: .3rem
+        position: relative
+        p
+                color: $COLORWHITE
+                letter-spacing: 0.1rem
+        &__name
+                left: 0
+                top: -1rem
+                position: absolute
+                padding: 0.2rem 0.5rem
+                background: $COLORSECOND
+                border-radius: .3rem
+                border: 1px solid $COLORWHITE
+                width: max-content
+
+                p
+                        font-size: 0.8rem
+        &__date
+                left: 1
+                bottom: -1.2rem
+                position: absolute
+                width: max-content
+
+                p
+                        font-size: 0.8rem
+        &__delete
+                cursor: pointer
+                color: $COLORSECOND
+                transition: color 0.3s
+                &:hover
+                        color: $COLORACCENT
+                        transition: color 0.3s
+
+
+        
