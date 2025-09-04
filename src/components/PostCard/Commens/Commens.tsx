@@ -28,14 +28,16 @@ const Comments = ({ data }: CommentsProps) => {
         {isLoading && <Preloader />}
         {!isLoading &&
           comments &&
-          comments.map((i) => (
-            <CommentPostCard
-              postId={data._id}
-              userId={userId}
-              key={i._id}
-              data={i}
-            />
-          ))}
+          [...comments]
+            .reverse()
+            .map((i) => (
+              <CommentPostCard
+                postId={data._id}
+                userId={userId}
+                key={i._id}
+                data={i}
+              />
+            ))}
       </Flex>
 
       <AddPostComment data={data} />
